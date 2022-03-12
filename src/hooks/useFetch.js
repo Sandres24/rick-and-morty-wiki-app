@@ -4,7 +4,7 @@ import { TYPES } from '../actions/fetchActions';
 import { fetchInitialState, fetchReducer } from '../reducers/fetchReducer';
 
 const useFetch = (url) => {
-   const [data, dispatch] = useReducer(fetchReducer, fetchInitialState);
+   const [state, dispatch] = useReducer(fetchReducer, fetchInitialState);
 
    useEffect(() => {
       if (!url) return;
@@ -23,7 +23,7 @@ const useFetch = (url) => {
       return () => (isMounted = false);
    }, [url]);
 
-   return { data, dispatch };
+   return { state, dispatch };
 };
 
 export default useFetch;

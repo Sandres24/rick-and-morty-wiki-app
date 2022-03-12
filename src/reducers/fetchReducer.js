@@ -1,7 +1,7 @@
 import { TYPES } from '../actions/fetchActions';
 
 export const fetchInitialState = {
-   data: [],
+   data: null,
    isLoading: true,
    err: null,
 };
