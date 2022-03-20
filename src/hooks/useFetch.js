@@ -6,10 +6,17 @@ import { fetchInitialState, fetchReducer } from '../reducers/fetchReducer';
 const useFetch = (url) => {
    const [state, dispatch] = useReducer(fetchReducer, fetchInitialState);
 
+   if (!url && state.data)
+      dispatch({
+         type: TYPES.ONCHANGESTATE,
+         payload: { ...fetchInitialState, isLoading: false },
+      });
+
    useEffect(() => {
       if (!url) return;
 
       let isMounted = true;
+
       axios
          .get(url)
          .then((res) => {
@@ -17,7 +24,15 @@ const useFetch = (url) => {
                dispatch({ type: TYPES.ONSUCCESSFETCH, payload: res.data });
          })
          .catch((err) => {
-            if (isMounted) dispatch({ type: TYPES.ONERRORFETCH, payload: err });
+            if (isMounted)
+               dispatch({
+                  type: TYPES.ONERRORFETCH,
+                  payload: {
+                     error: true,
+                     errorName: err.name,
+                     errorMessage: err.message,
+                  },
+               });
          });
 
       return () => (isMounted = false);

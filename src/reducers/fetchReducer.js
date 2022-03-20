@@ -10,8 +10,7 @@ export const fetchReducer = (state, action) => {
    switch (action.type) {
       case TYPES.ONCHANGESTATE:
          return {
-            ...state,
-            data: action.payload,
+            ...action.payload,
          };
       case TYPES.ONSUCCESSFETCH:
          return {
@@ -23,13 +22,9 @@ export const fetchReducer = (state, action) => {
          };
       case TYPES.ONERRORFETCH:
          return {
-            data: state.data,
+            data: null,
             isLoading: false,
-            err: {
-               error: true,
-               errorName: action.payload.name,
-               errorMessage: action.payload.message,
-            },
+            err: action.payload,
          };
 
       default:
