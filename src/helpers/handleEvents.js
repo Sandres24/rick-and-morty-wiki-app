@@ -15,6 +15,7 @@ export const handleOnSubmitName = (data, cb) => {
 };
 
 export const handleVisibility = (e, info, cb) => {
+   if (info.searchBy === 'id') cb(false);
    if (info.searchBy === 'name' && e.target.value) cb(true);
    if (info.searchBy === 'name' && !e.target.value) cb(false);
 };
